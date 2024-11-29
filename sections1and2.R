@@ -14,15 +14,27 @@ LonData_NA_perc
 
 
 
-
 #preparing training/test set
-
 n_rows <- nrow(completeLoanData)
 training_idx <- sample(n_rows, n_rows * 0.7)
 training_data <- completeLoanData[training_idx,]
 test_data <- completeLoanData[-training_idx,]
 
 
-
 str(training_data)
 str(test_data)
+
+#data for training data
+write.csv(training_data,
+        file = "training_data.csv",
+        row.names = TRUE,
+        na = "",
+        quote = TRUE)
+
+
+#data for test data
+write.csv(test_data,
+        file = "test_data.csv",
+        row.names = TRUE,
+        na = "",
+        quote = TRUE)
