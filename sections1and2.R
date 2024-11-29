@@ -1,6 +1,7 @@
-#Loading the data from the 5 North Indian states 
-northern5 <- read.csv('northern5.csv')
+#Loading the entire dataset
+completeLoanData <- read.csv('completeLoanData.csv')
 
 #Checking the data type of every feature 
-str(northern5)
+str(completeLoanData)
+
 
