@@ -1,3 +1,10 @@
+"""
+
+Data Preprocessing
+
+Sections 1 and Sections 2
+"""
+
 #Loading the entire dataset
 completeLoanData <- read.csv('completeLoanData.csv', na.strings = c("NA", ""))
 
