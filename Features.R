@@ -84,8 +84,6 @@ completeLoanData$AgeGroup <- ifelse(completeLoanData$Age < 25, "Young Adult",
 
 
 
-
-
 completeLoanData$ESI <- completeLoanData$CURRENT_JOB_YRS / completeLoanData$Experience
 
 

@@ -79,3 +79,42 @@ plot(density(completeLoanData$Income),
      lwd = 1.5) 
 
 dev.off()
+
+
+
+#Income classification
+
+v_low <- min(completeLoanData$Income)
+low <- quantile(completeLoanData$Income, 0.05)
+median <- median(completeLoanData$Income)
+high <- max(completeLoanData$Income, 0.95)
+v_high <- max(completeLoanData$Income)
+
+#create column called income category
+completeLoanData$Income_Category <- ifelse(completeLoanData$Income <= v_low, "Very Low",
+                           ifelse(completeLoanData$Income > v_low & completeLoanData$Income <= median, "Median",
+                           ifelse(completeLoanData$Income > median & completeLoanData$Income <= high, "High",
+                           ifelse(completeLoanData$Income > high & completeLoanData$Income <= v_high , "Very Hight", NA)
+
+)))
+
+
+
+#Age group category
+completeLoanData$AgeGroup <- ifelse(completeLoanData$Age < 25, "Young Adult",
+
+                            ifelse(completeLoanData$Age >= 25 & completeLoanData$Age <= 40, "Adult",
+
+                            ifelse(completeLoanData$Age >= 41 & completeLoanData$Age <= 60, "Middle",
+
+                            ifelse(completeLoanData$Age >= 60, "Elderly", NA)
+                            
+                            )))
+
+
+#Employment Stability Score/Index
+completeLoanData$ESI <- completeLoanData$CURRENT_JOB_YRS / completeLoanData$Experience
+
+
+
+
