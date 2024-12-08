@@ -80,7 +80,79 @@ plot(density(completeLoanData$Income),
 
 dev.off()
 
+#FEATURE CREATION 
 
+"
+- discretisizing the 'Income' feature into categories 'Very Low', 'Low', 'Medium', 'High', 'Very High'
+- discretisizing the 'Age' feature into categories 'Young Adult', 'Adult', Middle Aged', 'Elder'
+- dividing the current job years by experience to present a new feature for Employment Stability Index (ESI)
+"
+
+min_income <- min(completeLoanData$Income) #get the minimum income value 
+max_income <- max(completeLoanData$Income) #get the maximum income value
+
+completeLoanData$Income_Level <- cut( #cutting the income values into bins
+  completeLoanData$Income, 
+  breaks = c(min_income, 2000000, 4000000, 6000000, 8000000, max_income), #using minimum and maximum incomes to create 5 bins
+  labels = c("Very Low", "Low", "Medium", "High", "Very High"), #labeling the 5 bins
+  include.lowest = TRUE #including the minimum 
+)
+
+summary(completeLoanData$Income_Level)
+
+#New Age Group Feature
+
+min_age <- min(completeLoanData$Age) #get the minimum age value 
+max_age <- max(completeLoanData$Age) #get the maximum age value
+
+completeLoanData$Age_Group <- cut( #cutting the age values into bins
+  completeLoanData$Age, 
+  breaks = c(min_age, 25, 40, 60, max_age), #using minimum and maximum ages to create 5 bins
+  labels = c("Young Adult", "Adult", "Middle Aged", "Elder"), #labeling the 4 bins
+  include.lowest = TRUE #including the minimum 
+)
+
+summary(completeLoanData$Age_Group)
+
+#Employment Stability Score/Index
+
+completeLoanData$ESI <- completeLoanData$CURRENT_JOB_YRS / completeLoanData$Experience #ESI = current job years / experience
+completeLoanData$ESI[is.na(completeLoanData$ESI)] <- 0 #replace N/A values with 0 
+
+summary(completeLoanData$ESI)
+
+#FEATURE ENCODING 
+
+"
+- encoding binary categorical features ('Married.Single' & 'Car_Ownership')
+- ordinal encoding the 'House_Ownership' feature (since Owning is better than renting and renting is better than
+than not renting or not owning in the context of a loan application)
+- using One-Hot Encoding to handle the numerous categorical classes for 'Profession' and create a binary matrix 
+that can be used during the modeling process
+"
+
+completeLoanData$Married.Single <- ifelse(completeLoanData$Married.Single == "married", 1, 0)
+str(completeLoanData$Married.Single) #validating successful binary encoding for Married.Single 
+summary(completeLoanData$Married.Single)
+
+completeLoanData$Car_Ownership <- ifelse(completeLoanData$Car_Ownership == "yes", 1, 0)
+str(completeLoanData$Car_Ownership) #validating successful binary encoding for Car_Ownership
+summary(completeLoanData$Car_Ownership)
+
+completeLoanData$House_Ownership <- ifelse(completeLoanData$House_Ownership == "owned", 2,
+                                           ifelse(completeLoanData$House_Ownership == "rented", 1, 0))
+str(completeLoanData$House_Ownership) #validating successful ordinal encoding for House_Ownership 
+summary(completeLoanData$House_Ownership)
+
+unique(completeLoanData$Profession)
+professionOneHot <- model.matrix(~ Profession - 1, data = completeLoanData) #creating the binary matrix for Profession
+completeLoanData <- cbind(completeLoanData, professionOneHot) #binding the matrix with the rest of the data
+str(completeLoanData) #validating successful one-hot encoding for Profession 
+head(completeLoanData) 
+
+
+
+'FAIRSONS FEATURE CREATION WORK
 
 #Income classification
 
@@ -114,7 +186,7 @@ completeLoanData$AgeGroup <- ifelse(completeLoanData$Age < 25, "Young Adult",
 
 #Employment Stability Score/Index
 completeLoanData$ESI <- completeLoanData$CURRENT_JOB_YRS / completeLoanData$Experience
-
+'
 
 
 
