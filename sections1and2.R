@@ -150,6 +150,9 @@ completeLoanData <- cbind(completeLoanData, professionOneHot) #binding the matri
 str(completeLoanData) #validating successful one-hot encoding for Profession 
 head(completeLoanData) 
 
+#EXPORTING DATAFRAME TO CSV FILE 
+write.csv(completeLoanData, file = "cleanLoanData.csv", row.names = FALSE)
+
 
 
 'FAIRSONS FEATURE CREATION WORK
