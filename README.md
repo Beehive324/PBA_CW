@@ -30,8 +30,7 @@ The dataset consists of anonymized information about loan applicants, including:
    - Identifying significant predictors of loan eligibility.
    
 3. **Model Development**:
-   - Comparing algorithms such as Logistic Regression, Decision Trees, Random Forests, and Gradient Boosting.
-   - Hyperparameter tuning to optimize model performance.
+   - Comparing algorithms such as Logistic Regression, Decision Trees, Random Forests, Artificial Neural Networks, Naive Bayes, Support Vector Machine.
 
 4. **Model Evaluation**:
    - Using train-test split or cross-validation.
@@ -47,13 +46,5 @@ The dataset consists of anonymized information about loan applicants, including:
 - **Programming Language**: Python
 - **Libraries and Frameworks**: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
 - **Version Control**: Git
-- **IDE**: PyCharm
 
-## Contributors
-- Zuheb Ahmad  
-- Mazen Alam  
-- Amir Khan  
-- Fairson Soares  
-- Joshua Craven  
-- Amit Bazarh  
 
